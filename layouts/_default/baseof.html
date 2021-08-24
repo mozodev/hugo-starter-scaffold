@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html>
-    {{- partial "head.html" . -}}
-    <body>
-        {{- partial "header.html" . -}}
-        <div id="content">
-        {{- block "main" . }}{{- end }}
-        </div>
-        {{- partial "footer.html" . -}}
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ block "title" . }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+    {{ hugo.Generator }}
+    {{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")  }}<meta name="robots" content="index, follow" />{{ else }}<meta name="robots" content="noindex, nofollow" />{{ end -}}
+    {{- template "_internal/google_analytics.html" . -}}
+    {{- template "_internal/opengraph.html" . -}}
+    {{- template "_internal/twitter_cards.html" . -}}
+    {{- template "_internal/schema.html" . -}}
+    {{- with .Site.Data.libraries }}{{- partial "layout/google-fonts.html" (index . "google-fonts") -}}{{ end -}}
+    {{- block "headCss" . }}{{ end -}}
+    {{ $options := (dict "targetPath" "assets/style.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+    {{ $style := resources.Get "style.scss" | resources.ToCSS $options }}
+    {{- $options := dict "inlineImports" true }}{{ $style = $style | resources.PostCSS $options -}}
+    {{- if hugo.IsProduction }}{{ $style = $style | minify | fingerprint | resources.PostProcess }}{{ end -}}
+    <link href="{{ $style.RelPermalink }}" rel="stylesheet" />
+    {{- block "headJs" . }}{{ end -}}
+    {{ $js := resources.Get "index.js" | js.Build (dict "targetPath" "assets/index.js" "minify" "true") -}}
+    <script src="{{ $js.Permalink }}"></script>
+  </head>
+  <body>
+    {{ block "header" . }}{{ partial "layout/navbar.html" . }}{{ end }}
+    {{ block "main" . }}{{ end }}
+    {{ block "footer" . }}{{ partial "layout/footer.html" . }}{{ end }}
+    {{ block "pageBottom" . }}{{ end }}
+    {{- $image := resources.Get (index .Site.Params.images 0) -}}
+    <img class="d-none show" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" />
+  </body>
 </html>

@@ -1,0 +1,12 @@
+google-fonts:
+  - //fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap
+
+cuddly-slider:
+  version: 1.x
+  css:
+    theme:
+      css/cuddly-slider.css: {}
+  js:
+    js/cuddly-slider.js: {}
+  dependencies:
+    - core/jquery

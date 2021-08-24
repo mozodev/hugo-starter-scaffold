@@ -1,0 +1,35 @@
+{{ $currentPage := . }}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">{{ .Site.Title }}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+          <li class="nav-item dropdown{{ if $currentPage.HasMenuCurrent " main" . }} active{{ end }}">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ .Pre }}<span>{{ .Name }}</span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {{ range .Children }}
+              <li{{ if $currentPage.IsMenuCurrent " main" . }}class="active"{{ end }}>
+                <a class="dropdown-item" href="{{ .URL }}">{{ .Name }}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </li>
+          {{ else }}
+          <li class="navbar-item {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}">
+            <a class="nav-link" href="{{ .URL }}" title="{{ .Title }}">
+              {{ .Pre }}<span>{{ .Name }}</span>
+            </a>
+          </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</nav>

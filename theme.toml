@@ -1,17 +1,17 @@
 # theme.toml template for a Hugo theme
 # See https://github.com/gohugoio/hugoThemes#themetoml for an example
 
-name = "Scaffold"
+name = "Hugo Starter Scaffold"
 license = "MIT"
-licenselink = "https://github.com/mozodev/scaffold/blob/master/LICENSE"
+licenselink = "https://github.com/mozodev/hugo-starter-scaffold/blob/master/LICENSE"
 description = ""
-homepage = "http://hugo.mozo.kr/scaffold"
-tags = [bootstrap,postcss]
+homepage = ""
+tags = ["bootstrap","purgecss"]
 features = []
-min_version = "0.41.0"
+min_version = "0.87.0"
 
 [author]
-  name = "yeongtaek, Hong<mozodev@users.noreply.github.com>"
+  name = "yeongtaek, Hong"
   homepage = "https://mozo.kr"
 
 # If porting an existing theme

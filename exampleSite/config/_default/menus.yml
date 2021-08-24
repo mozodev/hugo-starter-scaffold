@@ -1,0 +1,22 @@
+main:
+  - name: posts
+    post: <span class='alert'>New!</span>
+    pre: <i class="bi-alarm"></i>
+    url: /posts/
+    weight: -110
+  - name: all
+    post: <span class='alert'>New!</span>
+    pre: <i class="bi-alarm"></i>
+    url: /posts/
+    weight: 1
+    parent: posts
+  - name: featured posts
+    post: <span class='alert'>New!</span>
+    pre: <i class="bi-alarm"></i>
+    url: /posts/featured
+    weight: 2
+    parent: posts
+  - name: about
+    pre: <i class="bi-alarm"></i>
+    url: /about/
+    weight: -100

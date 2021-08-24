@@ -1,0 +1,13 @@
+theme: scaffold
+themesdir: ../..
+
+languageCode: en-us
+hasCJKLanguage: true
+title: Hugo Starter Scaffold
+
+build:
+  writeStats: true
+
+googleAnalytics:
+taxonomies:
+  series: series

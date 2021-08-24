@@ -1,0 +1,13 @@
+{{ define "main" }}
+{{- `<!-- /index.html  -->` | safeHTML -}}
+<div class="container">
+  <h1>front page!</h1>
+  <div class="row">
+    <div class="col-md-6">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+{{- `<!-- /index.html  -->` | safeHTML -}}
+{{ end }}
+

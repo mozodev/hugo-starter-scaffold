@@ -1,4 +1,4 @@
-theme: scaffold
+theme: hugo-starter-scaffold
 themesdir: ../..
 
 languageCode: en-us

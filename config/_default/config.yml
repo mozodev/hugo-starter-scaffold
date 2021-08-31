@@ -1,6 +1,3 @@
-theme: hugo-starter-scaffold
-themesdir: ../..
-
 languageCode: en-us
 hasCJKLanguage: true
 title: Hugo Starter Scaffold

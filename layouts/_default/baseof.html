@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ block "title" . }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
     {{ hugo.Generator }}
     {{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")  }}<meta name="robots" content="index, follow" />{{ else }}<meta name="robots" content="noindex, nofollow" />{{ end -}}
     {{- template "_internal/google_analytics.html" . -}}
@@ -13,11 +13,12 @@
     {{- template "_internal/schema.html" . -}}
     {{- with .Site.Data.libraries }}{{- partial "layout/google-fonts.html" (index . "google-fonts") -}}{{ end -}}
     {{- block "headCss" . }}{{ end -}}
-    {{ $options := (dict "targetPath" "assets/style.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+    {{ $options := (dict "targetPath" "assets/style.css" "outputStyle" "compressed") }}
     {{ $style := resources.Get "style.scss" | resources.ToCSS $options }}
     {{- $options := dict "inlineImports" true }}{{ $style = $style | resources.PostCSS $options -}}
     {{- if hugo.IsProduction }}{{ $style = $style | minify | fingerprint | resources.PostProcess }}{{ end -}}
-    <link href="{{ $style.RelPermalink }}" rel="stylesheet" />
+    {{- if eq hugo.Environment "theme" }}<link href="{{ $style.RelPermalink }}" rel="stylesheet" />{{ else }}
+    <link href="/style.min.css" rel="stylesheet" />{{ end -}}
     {{- block "headJs" . }}{{ end -}}
     {{ $js := resources.Get "index.js" | js.Build (dict "targetPath" "assets/index.js" "minify" "true") -}}
     <script src="{{ $js.Permalink }}"></script>

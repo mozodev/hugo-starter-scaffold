@@ -21,7 +21,8 @@
     <link href="/style.min.css" rel="stylesheet" />{{ end -}}
     {{- block "headJs" . }}{{ end -}}
     {{ $js := resources.Get "index.js" | js.Build (dict "targetPath" "assets/index.js" "minify" "true") -}}
-    <script src="{{ $js.Permalink }}"></script>
+    {{- if eq hugo.Environment "theme" }}<script src="{{ $js.Permalink }}"></script>{{ else }}
+    <script src="/index.js"></script>{{ end -}}
   </head>
   <body>
     {{ block "header" . }}{{ partial "layout/navbar.html" . }}{{ end }}
